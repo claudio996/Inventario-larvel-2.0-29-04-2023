@@ -1,0 +1,79 @@
+ <div class="col-md-4">
+            <div class="modal fade" data-backdrop="static" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="false">
+                <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+                    <div class="modal-content bg-gradient-danger">
+                        <div class="modal-header  bg-gradient-danger">
+                            <h5 class="modal-title">Prestación</h5>
+                        </div>
+
+                        <div class="modal-body bg-gradient-danger">
+                            <div class="container">
+
+                                <form action="" class="forms">
+                                    @csrf
+
+                                    <div class="mb-3">
+                                        <!--DINAMIC SELECT !-->
+                                        <label for="" class="form-label">Motive</label>
+                                        <input type="text" class="form-control" id="title" name="title">
+                                    </div>
+                                    <div class="mb-3">
+                                        <!--DINAMIC SELECT !-->
+                                        <label for="" class="form-label">Select your personal</label>
+                                        <select class="form-control" name="personal_id" id="personal_id">
+                                            @foreach ($personal as $persona)
+                                            <option value="{{ $persona->id }}">
+                                                {{ $persona->name }}{{ $persona->surname }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <!--DINAMIC SELECT !-->
+                                        <label for="" class="form-label">Select your Item</label>
+                                        <select class="form-control" name="item_id" id="item_id">
+                                            @foreach ($items as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="" class="form-label">Fecha de inicio</label>
+                                            <input type="time" class="form-control" id="start" name="start">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="datetimepicker">Fecha de termino</label>
+                                            <input id="datetimepicker" class="form-control" title="datetimepicker" />
+
+                                            <script>
+                                                $(document).ready(function() {
+                                                    // create DateTimePicker from input HTML element
+                                                    $("#datetimepicker").kendoDateTimePicker({
+                                                        value: new Date(),
+                                                        dateInput: true
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-success mt-3" id="clearTime">Eliminar Hora</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-gradient-danger">
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-success mt-3" id="save">Guardar</button>
+                                <button type="submit" class="btn btn-warning mt-3" id="edit">Edit</button>
+                                <button type="submit" class="btn btn-danger mt-3" id="delete">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

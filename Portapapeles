@@ -1,0 +1,118 @@
+  <tbody>
+                <tr>
+                    @foreach($dependences as $dep)
+                <tr>
+                    <th>{{$dep->id}}</th>
+                    <th>{{$dep->name}}</th>
+                    <th>{{$dep->type}}</th>
+                    <th>{{$dep->capacity}}</th>
+                    <th> @if($dep->status == 1)
+                        <a class="btn btn-success" href="{{ url('dependences/update_status', $dep->id) }}" onclick="return confirm('Quiere inactivar esta categoria?')">ACTIVE</a>
+                        @else
+                        <a class="btn btn-warning" href="{{ url('dependences/update_status',$dep->id) }}" onclick="return confirm('Quiere activar esta categoria')">INACTIVE</a>
+                        @endif
+                    </th>
+                    <td>
+                        <form action="{{ url('dependences.delete', $dep->id) }}" method="Post">
+                            <a class="btn btn-primary" href="{{ url('dependences/edit',$dep->id) }}">Edit</a>
+                            @csrf
+                            @method('DELETE')
+                            <a class="btn btn-danger" href="{{ url('dependences/destroy',$dep->id) }}" onclick="return confirm('Quiere eliminar definitivamente esta categoria?')">Delete</a>
+
+                        </form>
+
+                    </td>
+                </tr>
+                @endforeach
+
+
+                </tr>
+
+            </tbody>
+
+
+
+
+            /////
+            
+            /*
+
+dayClick: function(info) {
+  
+    alert(info);
+       const start_date_time = date.format();
+
+    const end_date = $('#datetimepicker').val();
+    
+    const start_time_convert = moment(start_date).format('YYYY-MM-DD hh:mm:ss');
+
+    const endDateTime = moment(end_date).format('YYYY-MM-DD hh:mm:ss');
+    alert(endDateTime);
+    alert(start_time_convert); 
+
+      $('#save').click(() => { 
+         const title = $('#title').val();
+         const personal_id = $('$personal_id').val();
+         const item_id = $('#item_id').val();
+         const start = start_time_convert;
+         const end = endDateTime;
+
+         $.ajax({
+
+             type: "POST",
+             url: "{{ url ('/prestaciones/store')}}",
+             dataType: 'json',
+             data: {
+                 "_token": "{{ csrf_token() }}",
+                 title,
+                 personal_id,
+                 item_id,
+                 start,
+                 end
+             },
+             success: ((response) => {
+                 console.log(response);
+             }),
+             error: ((error) => {
+                 console.log(error);
+             })
+         })
+
+     }) 
+}, 
+
+*/
+
+
+
+modelo prestaciones
+
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class prestacion extends Model
+{
+    use HasFactory;
+
+    
+    protected $fillable = [
+        'Observacion',
+        'fecha_hora_start',
+        'fecha_hora_end',
+        'status',
+        'personal_id',
+        'item_id'
+
+    ];
+
+
+    public function personal(): BelongsTo
+    {
+        return $this->belongsTo(personal::class);
+    }
+}
