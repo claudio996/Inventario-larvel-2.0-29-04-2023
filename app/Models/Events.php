@@ -10,6 +10,6 @@ class Events extends Model
 
     use HasFactory;
     protected $fillable  = [
-        'id', 'title', 'start', 'end'
+        'id', 'title', 'start', 'end' ,'personal_id', 'item_id'
     ];
 }

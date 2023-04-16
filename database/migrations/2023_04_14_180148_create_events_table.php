@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->integer('status')->default(1);
+            $table->foreignId('personal_id')->nullable()->constrained('personals')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('item_id')->nullable()->constrained('Items')->cascadeOnUpdate()->nullOnDelete();
             $table->timestamps();
         });
     }

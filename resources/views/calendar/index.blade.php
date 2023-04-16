@@ -108,7 +108,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                var calendar = $('#calendar').fullCalendar({
+                const calendar = $('#calendar').fullCalendar({
                     header: {
                         left: 'prev,next today',
                         center: 'title',
@@ -127,41 +127,47 @@
                     },
                     selectable: true,
                     selectHelper: true,
-                    select: function(start, end, allDay) {
+                    select: function(date) {
+                        let startDate = date.format()
                         $('#exampleModal').modal('show');
+                        
+                        $('#save').click(() => {
+                            let startTimeVal = $('#start').val();
+                            const title = $('#title').val();
+                            const start = moment().format(`${startDate + ' ' + startTimeVal} `);
+                            const end = moment($('#datetimepicker').val()).format('YYYY-MM-DD hh:mm:ss');
+                            const personal = $('#personal_id').val();
+                            const items = $('#item_id').val();
 
-                        var title = prompt('Event Title:');
-                        if (title) {
-                            var start = moment(start, 'DD.MM.YYYY').format('YYYY-MM-DD');
-                            var end = moment(end, 'DD.MM.YYYY').format('YYYY-MM-DD');
                             $.ajax({
                                 url: "{{ URL::to('createEvent') }}",
-                                data: 'title=' + title + '&start=' + start + '&end=' + end +
+                                data: 'title=' + title + '&start=' + start + '&end=' + end + '&personal_id=' + personal + '&item_id=' + items +
                                     '&_token=' + "{{ csrf_token() }}",
                                 type: "post",
                                 success: function(data) {
-                                    alert("Added Successfully");
+                              
                                     $('#calendar').fullCalendar('refetchEvents');
                                 }
-                            });
-                        }
+                            })
+                        })
                     },
-                    eventClick: function(event) {
-                        var deleteMsg = confirm("Do you really want to delete?");
-                        if (deleteMsg) {
-                            $.ajax({
-                                type: "POST",
-                                // url: "{{ URL::to('deleteevent') }}",
-                                data: "&id=" + event.id + '&_token=' + "{{ csrf_token() }}",
-                                success: function(response) {
-                                    if (parseInt(response) > 0) {
-                                        $('#calendar').fullCalendar('removeEvents', event.id);
-                                        alert("Deleted Successfully");
-                                    }
-                                }
-                            });
-                        }
-                    }
+
+                    /*  eventClick: function(event) {
+                         var deleteMsg = confirm("Do you really want to delete?");
+                         if (deleteMsg) {
+                             $.ajax({
+                                 type: "POST",
+                                 // url: "{{ URL::to('deleteevent') }}",
+                                 data: "&id=" + event.id + '&_token=' + "{{ csrf_token() }}",
+                                 success: function(response) {
+                                     if (parseInt(response) > 0) {
+                                         $('#calendar').fullCalendar('removeEvents', event.id);
+                                         alert("Deleted Successfully");
+                                     }
+                                 }
+                             });
+                         }
+                     } */
                 });
             });
         </script>

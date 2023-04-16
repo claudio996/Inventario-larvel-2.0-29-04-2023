@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class CalendarController extends Controller
 {
     protected  $items, $personal;
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -30,14 +30,19 @@ class CalendarController extends Controller
                 ->get(['id', 'title', 'start', 'end']);
             return response()->json($events);
         }
+
+
+
         return view('calendar.index', ['personal' => $getPersonal, 'items' => $getItems]);
     }
 
     public function createEvent(Request $request)
     {
-        print('ffff');
+
         $data = $request->except('_token');
         $events = Events::insert($data);
-        return response()->json($events);
+        $data =  response()->json($events);
+
+        return redirect('calendar');
     }
 }
