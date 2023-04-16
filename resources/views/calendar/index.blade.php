@@ -109,10 +109,14 @@
                     }
                 });
                 const calendar = $('#calendar').fullCalendar({
+                    locale: 'es',
+                    timeZone: 'America/Santiago',
+                    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                    eventColor: '420A1F',
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,basicWeek,basicDay'
+                        right: 'month,agendaWeek,basicDay',
                     },
 
                     editable: true,
@@ -130,7 +134,7 @@
                     select: function(date) {
                         let startDate = date.format()
                         $('#exampleModal').modal('show');
-                        
+
                         $('#save').click(() => {
                             let startTimeVal = $('#start').val();
                             const title = $('#title').val();
@@ -145,8 +149,9 @@
                                     '&_token=' + "{{ csrf_token() }}",
                                 type: "post",
                                 success: function(data) {
-                              
+
                                     $('#calendar').fullCalendar('refetchEvents');
+                                    $('#exampleModal').modal('hide');
                                 }
                             })
                         })

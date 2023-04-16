@@ -40,6 +40,8 @@
 
     <script src="https://kendo.cdn.telerik.com/2023.1.314/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2023.1.314/js/kendo.all.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@3.10.2/dist/locale/es.js'></script>
+
 
     <script src="{{ asset('js/config.js') }}"></script>
 
