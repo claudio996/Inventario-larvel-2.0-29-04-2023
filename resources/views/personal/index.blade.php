@@ -2,35 +2,36 @@
 
 @section('content')
 <div class="card shadow mt-5">
-    <div class="card-header border-0">
-        <div class="row align-items-center">
-            <div class="col">
-                <h3 class="mb-0">Personal</h3>
-            </div>
+    <div class="table-responsive">
+        <div class="card-header border-0">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="mb-0">Personal</h3>
+                </div>
 
-            <div class="col text-right">
-                <button type="button" class="btn btn-warning mb-3" data-toggle="modal" data-target="#modal-notification">New Personal</button>
+                <div class="col text-right">
+                    <button type="button" class="btn btn-warning mb-3" data-toggle="modal" data-target="#modal-notification">New Personal</button>
 
+                </div>
             </div>
         </div>
-    </div>
-    <div class="table-responsive">
-        <!-- Projects table -->
-        <table class="table align-items-center table-flush" id="example">
-            <thead class="thead-light">
+
+
+        <table id="personal-table" class="table table-striped table-bordered table-condensed" style="width:90%">
+            <thead>
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">surname</th>
-                    <th scope="col">cargo</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Options</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Cargo</th>
+                    <th>Status</th>
+                    <th>Option</th>
+
                 </tr>
             </thead>
-
             <tbody>
-                <tr>
-                    @foreach($personal as $persona)
+
+                @foreach($personal as $persona)
                 <tr>
                     <th>{{$persona->id}}</th>
                     <th>{{$persona->name}}</th>
@@ -57,32 +58,10 @@
                 @endforeach
 
 
-                </tr>
 
             </tbody>
 
         </table>
-        <div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <i class="fa fa-angle-left"></i>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <i class="fa fa-angle-right"></i>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
     </div>
 </div>
 
@@ -133,6 +112,6 @@
         </div>
     </div>
 
+</div>
 
-
-    @endsection
+@endsection

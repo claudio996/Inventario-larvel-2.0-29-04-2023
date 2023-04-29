@@ -1,55 +1,64 @@
 @extends('layouts.panel')
 
 @section('content')
-<div class="card shadow mt-5" >
-    <div class="card-header border-0">
-        <div class="row align-items-center">
-            <div class="col">
-                <h3 class="mb-0">Insumos</h3>
-                <span style="color:red;   font-style: italic;">
-                Estados del bien
-                1: Nuevo
-                2: En uso
-                3: Malo
-            </span>
-            </div>
-            <div class="col text-right">
-                <button type="button" class="btn btn-warning mb-3" data-toggle="modal" data-target="#modal-notification">New Item</button>
 
+
+
+<div class="card shadow mt-5">
+
+    <div class="table-responsive">
+
+        <div class="card-header border-0">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="mb-0">Insumos</h3>
+                    <span style="color:red;   font-style: italic;">
+                        Estados del bien
+                        1: Nuevo
+                        2: En uso
+                        3: Malo
+                    </span>
+                </div>
+                <div class="col text-right">
+                    <button type="button" class="btn btn-warning mb-3" data-toggle="modal" data-target="#modal-notification">New Item</button>
+
+                </div>
             </div>
         </div>
-    </div>
-    
-    <div class="table-responsive">
-        <!-- Projects table -->
-        <table class="table align-items-center table-flush">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">SerialNumber</th>
-                    <th scope="col">Numero</th>
-                    <th scope="col">Estado del bien</th>
-                    <th scope="col">Category name</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Options</th>
-                </tr>
+
+        <table id="items-table" class="table table-striped table-bordered table-condensed" style="width:90%">
+            <thead>
+
+                <th>ID</th>
+                <th>Name</th>
+                <th>SerialNumber</th>
+                <th>Numero</th>
+                <th>Estado del bien</th>
+                <th>Category name</th>
+                <th>Status</th>
+                <th>Options</th>
+
             </thead>
             <tbody>
                 <tr>
                     @foreach($items as $item)
-                <tr>
+
                     <th>{{$item->id}}</th>
                     <th>{{$item->name}}</th>
                     <th>{{$item->serialNumber}}</th>
                     <th>{{$item->numero}}</th>
                     <th>{{$item->estado}}</th>
-                    <th>{{$item->categorie['name']}}</th>
+                    <th>{{$item->categorie_id}}</th>
                     <th>{{$item->status}}</th>
 
                     <td>
-                        <a href="" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="" class="btn btn-sm btn-danger">Delete</a>
+                        <form action="{{ url('items.delete', $item->id) }}" method="Post">
+                            <a class="btn btn-primary" href="{{ url('items/edit',$item->id) }}">Edit</a>
+                            @csrf
+                            @method('DELETE')
+                            <a class="btn btn-danger" href="{{ url('items/destroy',$item->id) }}" onclick="return confirm('Quiere eliminar definitivamente este insumo?')">Delete</a>
+
+                        </form>
 
                     </td>
                 </tr>
@@ -60,8 +69,8 @@
 
             </tbody>
 
-
         </table>
+
     </div>
 </div>
 
@@ -93,7 +102,7 @@
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Estado del insumo</label>
-                            <select class="form-control"  id="estado" name="estado" aria-label="Default select example">
+                            <select class="form-control" id="estado" name="estado" aria-label="Default select example">
                                 <option disabled>Estado del bien</option>
                                 <option value="1">Nuevo</option>
                                 <option value="2">Usado</option>
@@ -131,7 +140,7 @@
 
             </div>
         </div>
+    </div>
+</div>
 
-
-
-        @endsection
+@endsection

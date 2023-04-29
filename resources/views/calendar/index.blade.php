@@ -74,8 +74,13 @@
                                                 $(document).ready(function() {
                                                     // create DateTimePicker from input HTML element
                                                     $("#datetimepicker").kendoDateTimePicker({
+                                                        format: "dd/MM/yyyy HH:mm",
+                                                        timeFormat: "HH:mm",
+                                                        interval: 30,
                                                         value: new Date(),
-                                                        dateInput: true
+                                                        dateInput: true,
+
+
                                                     });
                                                 });
                                             </script>
@@ -92,6 +97,7 @@
                                 <button type="submit" class="btn btn-success mt-3" id="save">Guardar</button>
                                 <button type="submit" class="btn btn-warning mt-3" id="edit">Edit</button>
                                 <button type="submit" class="btn btn-danger mt-3" id="delete">Delete</button>
+
                             </div>
                         </div>
                     </div>
@@ -138,8 +144,8 @@
                         $('#save').click(() => {
                             let startTimeVal = $('#start').val();
                             const title = $('#title').val();
-                            const start = moment().format(`${startDate + ' ' + startTimeVal} `);
-                            const end = moment($('#datetimepicker').val()).format('YYYY-MM-DD hh:mm:ss');
+                            let start = moment().format(`${startDate + ' ' + startTimeVal} `);
+                            let end = moment($('#datetimepicker').val()).format('YYYY-MM-DD hh:mm:ss');
                             const personal = $('#personal_id').val();
                             const items = $('#item_id').val();
 
@@ -155,24 +161,41 @@
                                 }
                             })
                         })
+
                     },
 
-                    /*  eventClick: function(event) {
-                         var deleteMsg = confirm("Do you really want to delete?");
-                         if (deleteMsg) {
-                             $.ajax({
-                                 type: "POST",
-                                 // url: "{{ URL::to('deleteevent') }}",
-                                 data: "&id=" + event.id + '&_token=' + "{{ csrf_token() }}",
-                                 success: function(response) {
-                                     if (parseInt(response) > 0) {
-                                         $('#calendar').fullCalendar('removeEvents', event.id);
-                                         alert("Deleted Successfully");
-                                     }
-                                 }
-                             });
-                         }
-                     } */
+                    eventClick: function(info) {
+                        alert('ddd');
+                        $('#exampleModal').modal('show');
+                        console.log(info);
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+                    /*  if (UpdateMsg) {
+                         $('#exampleModal').modal('show');
+                          $.ajax({
+                              type: "POST",
+                              // url: "{{ URL::to('deleteevent') }}",
+                              data: "&id=" + event.id + '&_token=' + "{{ csrf_token() }}",
+                              success: function(response) {
+                                  if (parseInt(response) > 0) {
+                                      $('#calendar').fullCalendar('removeEvents', event.id);
+                                      alert("Deleted Successfully");
+                                  }
+                              }
+                          });
+                      } */
+
                 });
             });
         </script>

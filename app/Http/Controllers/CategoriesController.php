@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CategoriesController extends Controller
 {
@@ -23,7 +24,7 @@ class CategoriesController extends Controller
         return view('categories.index', ['category' => $categorie]);
     }
 
- 
+
     public function create()
     {
         //
@@ -87,5 +88,13 @@ class CategoriesController extends Controller
     {
         Categorie::destroy($id);
         return redirect('categories');
+    }
+
+    public function exportPdf()
+    {
+        $categories = Categorie::paginate();
+        $pdf = Pdf::loadView('categories.pdf', ['categories' => $categories]);
+        $pdf->loadHTML('<h1>Test</h1>');
+        return $pdf->stream();
     }
 }

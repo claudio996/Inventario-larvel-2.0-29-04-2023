@@ -116,3 +116,56 @@ class prestacion extends Model
         return $this->belongsTo(personal::class);
     }
 }
+////////////////7777
+
+
+<div class="table-responsive">
+<!-- Projects table -->
+<table class="display">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">SerialNumber</th>
+            <th scope="col">Numero</th>
+            <th scope="col">Estado del bien</th>
+            <th scope="col">Category name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach($items as $item)
+        <tr>
+            <th>{{$item->id}}</th>
+            <th>{{$item->name}}</th>
+            <th>{{$item->serialNumber}}</th>
+            <th>{{$item->numero}}</th>
+            <th>{{$item->estado}}</th>
+            <th>{{$item->categorie_id}}</th>
+            <th>{{$item->status}}</th>
+
+            <td>
+                <form action="{{ url('items.delete', $item->id) }}" method="Post">
+                    <a class="btn btn-primary" href="{{ url('items/edit',$item->id) }}">Edit</a>
+                    @csrf
+                    @method('DELETE')
+                    <a class="btn btn-danger" href="{{ url('items/destroy',$item->id) }}" onclick="return confirm('Quiere eliminar definitivamente este insumo?')">Delete</a>
+
+                </form>
+
+            </td>
+        </tr>
+        @endforeach
+
+
+        </tr>
+
+    </tbody>
+
+
+</table>
+
+
+</div>

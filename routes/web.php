@@ -1,9 +1,11 @@
 <?php
+use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PrestacionController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,10 @@ Route::get('/categories/update_status/{id}', [App\Http\Controllers\CategoriesCon
 Route::get('/categories/destroy/{id}', [App\Http\Controllers\CategoriesController::class, 'destroy']);
 Route::put('/categories/update/{id}', [App\Http\Controllers\CategoriesController::class, 'update']);
 Route::post('/categories/store', [App\Http\Controllers\CategoriesController::class, 'store']);
+
+
+Route::get('/categories/pdf', [App\Http\Controllers\CategoriesController::class, 'exportPdf']);
+// Route::get('/categories-pdf', 'CategoriesController@exportPdf')->name('categories.pdf');
 
 
 Route::get('/dependences', [App\Http\Controllers\dependenceController::class, 'index']);
@@ -48,6 +54,8 @@ Route::post('/dependences/store', [App\Http\Controllers\dependenceController::cl
 // Route::get('/prestacion', [App\Http\Controllers\prestacionController::class, 'index']);
 
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index']);
+Route::get('/items/edit/{id}', [App\Http\Controllers\ItemController::class, 'edit']);
+Route::put('/items/update/{id}', [App\Http\Controllers\ItemController::class, 'update']);
 Route::get('/items/create', [App\Http\Controllers\ItemController::class, 'create']);
 Route::post('/items/store', [App\Http\Controllers\ItemController::class, 'store']);
 

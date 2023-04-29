@@ -45,4 +45,11 @@ class CalendarController extends Controller
 
         return redirect('calendar');
     }
+    public function edit($id)
+    {
+        $events = Events::find($id);
+        
+        return response()->json($events);
+    
+    }
 }

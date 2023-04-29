@@ -11,6 +11,7 @@ class Item extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'serialNumber',
         'Description',
@@ -21,7 +22,7 @@ class Item extends Model
 
     public function categorie(): BelongsTo
     {
-        return $this->belongsTo(Categorie::class);
+        return $this->belongsTo(Categorie::class, 'categories_id');
 
     }
 }

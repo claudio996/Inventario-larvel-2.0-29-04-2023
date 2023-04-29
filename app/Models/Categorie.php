@@ -15,9 +15,9 @@ class Categorie extends Model
         'status',
     ];
 
-    public function article(): HasMany
+    public function Items(): HasMany
     {
-        return $this->hasMany(Article::class);
+        return $this->hasMany(Item::class, 'categorie_id', 'id');
 
     }
 }
